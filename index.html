@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+
+    <title>Weather Dashboard</title>
+  </head>
+  <body>
+    <header class="main-header">
+      <h1>Weather Dashboard</h1>
+    </header>
+
+    <div class="main-container">
+      <div class="row">
+        <aside class="col-lg-3">
+          <h2 id="sidebar-title">Search for a City:</h2>
+
+          <form id="citySearch">
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="City Here" />
+
+              <div class="input-group-append"></div>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary btn-block"
+              id="sidebar-btn"
+            >
+              Search
+            </button>
+          </form>
+          <div id="history"></div>
+        </aside>
+
+        <div class="col-lg-9">
+          <section id="presentDay" class="todaysWeather"></section>
+
+          <section id="weekly" class="weeklyForecast"></section>
+        </div>
+      </div>
+    </div>
+
+    <script src="./assets/js/script.js" async defer></script>
+  </body>
+</html>
