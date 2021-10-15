@@ -35,3 +35,52 @@ margin-top: 20px;
     
 
 }
+
+
+.uvi-btn{
+    text-align: center;
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    margin: 0;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+    border: 1px solid transparent;
+    outline: none;
+    color: #1a1a1a;
+    background-color: #aeaeae;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.9rem;
+
+}
+
+.uvi-btn.danger-uvi {
+    background-color: #e64c66;
+    color: #ffffff;
+  }
+  
+  .uvi-btn.danger-uvi:hover {
+    background-color: #ee8294;
+  }
+  
+  .uvi-btn.wary-uvi {
+    background-color: #ffca2c;
+    color: #000000;
+  }
+  
+  .uvi-btn.wary-uvi:hover {
+    background-color: #ffca2cf5;
+    color: #000000;
+  }
+  
+  .uvi-btn.safe-uvi {
+    background-color: #157347;
+    color: #ffffff;
+  }
+  
+  .uvi-btn.safe-uvi:hover {
+    background-color: #12854f;
+    color: #ffffff;
+  }
+  

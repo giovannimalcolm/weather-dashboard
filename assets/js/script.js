@@ -32,7 +32,7 @@ function addHistory(input) {
     searchHistory.push(input);
 
     localStorage.setItem('history', JSON.stringify(searchHistory));
-    printHistory(); 
+    printHistory();
 }
 
 //incomplete
@@ -48,21 +48,86 @@ function printHistory() {
 }
 
 
+function printTodaysWeather(name, weather, timezone) {
 
+    var temp = weather.temp;
+    var windspd = weather.wind_speed;
+    var humidity = weather.humidity;
+    var uvi = weather.uvi;
+    var icon = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
+    var iconCaption = weather.weather[0].description || weather[0].main;
+
+    //All DOM elements involved in the "today" section box
+    var box = document.createElement('div');
+    var boxContent = document.createElement('div');
+    var header = document.createElement('h2');
+    var weatherImg = document.createElement('img');
+    var tempEl = document.createElement('p');
+    var windEl = document.createElement('p');
+    var humidityEl = document.createElement('p');
+    var uviEl = document.createElement('p');
+    var uviBox = document.createElement('button');
+
+    box.setAttribute('class', 'todaysWeather')
+    boxContent.setAttribute('class', 'todaysWeather-body')
+    box.append(boxContent);
+
+    var date = dayjs().tz(timezone).format('M/D/YYYY');
+    header.textContent = '${name} (${date})';
+    header.setAttribute('class', 'h3 today-title')
+    weatherImg.setAttribute('class', 'weather-img')
+    weatherImg.setAttribute('src', icon);
+    weatherImg.setAttribute('alt', iconCaption);
+
+    header.append(weatherImg)
+
+    tempEl.textContent = `Temp: ${temp}°F`;
+    tempEl.setAttribute('class', 'today-txt')
+    windEl.textContent = `Wind: ${windspd} MPH`;
+    windEl.setAttribute('class', 'today-txt')
+    humidityEl.textContent = `Humidity: ${humidity} %`;
+    humidityEl.setAttribute('class', 'today-txt')
+
+    uviEl.textContent = 'UV  Index: ';
+    uviBox.classList.add('.uvi-btn')
+    uviBox.textContent = uvi;
+
+
+    if (uvi < 3) {
+        uviBox.classList.add('safe-uvi')
+    }
+    else if (uvi < 7) {
+        uviBox.classList.add('wary-uvi')
+    }
+    else {
+        uviBox.classList.add('danger-uvi')
+    }
+
+    uviEl.append(uviBox);
+
+    boxContent.append(header, tempEl, WindEl, humidityEl, uviEl);
+
+
+
+
+
+
+}
 
 
 function fetchLoc(fixedInput) {
-    var requestURL = `${weatherApiRootUrl}/geo/1.0/direct?q=${search}&limit=5&appid=${weatherApiKey}`;
+    var requestURL = `${weatherApiRootUrl}/geo/1.0/direct?q=${fixedInput}&limit=5&appid=${weatherApiKey}`;
     fetch(requestURL)
         .then(function (res) {
             return res.json();
         })
         .then(function (data) {
-            if (data[0] = null) {
+            if (!data[0]) {
                 alert('City not found');
             }
             else {
-                addHistory(fixedInput)
+                addHistory(fixedInput);
+                console.log(data)
                 fetchWeather(data[0]);
             }
         })
@@ -71,30 +136,33 @@ function fetchLoc(fixedInput) {
         });
 }
 
-function fetchWeather(loc){
-var {lat} = loc;
-var {lon} = loc;
-var {name} = loc;
+function fetchWeather(location) {
+    console.log(location)
 
-var requestURL = `${weatherApiRootUrl}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}`;
+    var { lat } = location;
+    var { lon } = location;
+    var { name } = location;
 
-fetch(requestURL)
-.then(function(res){
-    return res.json;
-})
-.then(function (data){
-    //print everything function here bc all data is achieved
-})
-.catch(function(err){
-    console.error(err);
+    var requestURL = `${weatherApiRootUrl}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}`;
 
-});
+    fetch(requestURL)
+        .then(function (res) {
+            return res.json;
+        })
+        .then(function (data) {
+            console.log(data)
+            //printContent(name, data);
+        })
+        .catch(function (err) {
+            console.error(err);
+
+        });
 }
 
 
 
-function historySearch(e){
-    if (!e.target.matches('.inHistory')){
+function historySearch(e) {
+    if (!e.target.matches('.inHistory')) {
         return;
     }
 
@@ -106,11 +174,13 @@ function historySearch(e){
 
 function searchCity(e) {
 
-    if (cityInput = null) {
+    if (!cityInput.value) {
         return;
     }
     e.preventDefault();
+    console.log(cityInput)
     var fixedInput = cityInput.value.trim();
+    console.log(fixedInput)
     fetchLoc(fixedInput);
     cityInput.value = '';
 }
