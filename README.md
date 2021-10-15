@@ -4,6 +4,7 @@ A simple weather dashboard application. The user is able to input a city and is 
 
 If the user wishes to see their search history, it is present under the search bar. Cities may be clicked on to be searched one more. 
 
-The application can be found at: 
+The application can be found at: https://giovannimalcolm.github.io/weather-dashboard/
 
 
+![ScreenShot](https://github.com/giovannimalcolm/weather-dashboard/blob/main/images/Screen%20Shot%202021-10-15%20at%207.52.00%20PM.png?raw=true)

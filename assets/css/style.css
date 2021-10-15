@@ -1,95 +1,87 @@
-.main-header{
-
-    background-image: linear-gradient(blue,purple);
-    color: white;
-    text-align: center;
-    width: 100%;
-    padding: .05%;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
+.main-header {
+  background-image: linear-gradient(blue, purple);
+  color: white;
+  text-align: center;
+  width: 100%;
+  padding: 0.05%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
 }
 
-
-#sidebar-title{
-font-size: 30px;
-font-family: Arial, Helvetica, sans-serif;
-display:inline-block;
-margin-top: 20px;
+#sidebar-title {
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
+  margin-top: 20px;
 }
 
-
-.sidebar{
-    width:10%;
-    
+.sidebar {
+  width: 10%;
 }
 
-#sidebar-btn{
-    margin-top: 20px;
-    margin-bottom: 20px;
+#sidebar-btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.todaysWeather{
-    border: 1px solid black;
-    margin-bottom: 10px;
-    margin-top: 30px;
-    
-
+.todaysWeather {
+  border: 1px solid black;
+  margin-bottom: 10px;
+  margin-top: 30px;
 }
 
-.todaysWeather-body{
+.todaysWeather-body {
   padding: 0.4rem;
-  
 }
 
-.uvi-btn{
-    text-align: center;
-    display: inline-block;
-    padding: 0.5rem 1.2rem;
-    margin: 0;
-    text-decoration: none;
-    font-size: 1rem;
-    border-radius: 0.3rem;
-    border: 1px solid transparent;
-    outline: none;
-    color: #1a1a1a;
-    background-color: #aeaeae;
-    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    font-size: 0.85rem;
-    padding: 0.3rem 0.9rem;
-
+.uvi-btn {
+  text-align: center;
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  margin: 0;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 0.3rem;
+  border: 1px solid transparent;
+  outline: none;
+  color: #1a1a1a;
+  background-color: #aeaeae;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.9rem;
 }
 
 .uvi-btn.danger-uvi {
-    background-color: #e64c66;
-    color: #ffffff;
-  }
-  
-  .uvi-btn.danger-uvi:hover {
-    background-color: #ee8294;
-  }
-  
-  .uvi-btn.wary-uvi {
-    background-color: #ffca2c;
-    color: #000000;
-  }
-  
-  .uvi-btn.wary-uvi:hover {
-    background-color: #ffca2cf5;
-    color: #000000;
-  }
-  
-  .uvi-btn.safe-uvi {
-    background-color: #157347;
-    color: #ffffff;
-  }
-  
-  .uvi-btn.safe-uvi:hover {
-    background-color: #12854f;
-    color: #ffffff;
-  }
-  
-  .historyItem{
-    text-align: center;
+  background-color: #e64c66;
+  color: #ffffff;
+}
+
+.uvi-btn.danger-uvi:hover {
+  background-color: #ee8294;
+}
+
+.uvi-btn.wary-uvi {
+  background-color: #ffca2c;
+  color: #000000;
+}
+
+.uvi-btn.wary-uvi:hover {
+  background-color: #ffca2cf5;
+  color: #000000;
+}
+
+.uvi-btn.safe-uvi {
+  background-color: #157347;
+  color: #ffffff;
+}
+
+.uvi-btn.safe-uvi:hover {
+  background-color: #12854f;
+  color: #ffffff;
+}
+
+.historyItem {
+  text-align: center;
   display: inline-block;
   padding: 0.5rem 1.2rem;
   margin: 0.1rem;
@@ -103,12 +95,10 @@ margin-top: 20px;
   background-color: #aeaeae;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
-  
 
-.five-day-card{
+.five-day-card {
   position: relative;
   width: 20%;
   padding-right: 15px;
   padding-left: 15px;
-
 }

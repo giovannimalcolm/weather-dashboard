@@ -21,10 +21,10 @@ function getHistory() {
     if (storedHistory) {
         searchHistory = JSON.parse(storedHistory);
     }
-
     printHistory();
 }
 
+//Adds searches to lcl storage
 function addHistory(input) {
 
     if (searchHistory.indexOf(input) !== -1) {
@@ -32,12 +32,11 @@ function addHistory(input) {
     }
     console.log(input)
     searchHistory.push(input);
-
     localStorage.setItem('history', JSON.stringify(searchHistory));
     printHistory();
 }
 
-
+//Renders history to page
 function printHistory() {
     historyContainer.innerHTML = '';
     console.log(searchHistory)
@@ -48,23 +47,19 @@ function printHistory() {
         historyItem.setAttribute('data-search', searchHistory[i]);
         historyItem.setAttribute('aria-controls', 'today')
         historyContainer.append(historyItem);
-
     }
-
-
 }
 
-
+//Renders container box with todays weather for specified city
 function printTodaysWeather(name, weather, timezone) {
 
     var temp = weather.temp;
     var windspd = weather.wind_speed;
     var humidity = weather.humidity;
-    var {uvi} = weather;
+    var { uvi } = weather;
     var icon = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
     var iconCaption = weather.weather[0].description || weather[0].main;
 
-    //All DOM elements involved in the "today" section box
     var box = document.createElement('div');
     var boxContent = document.createElement('div');
     var header = document.createElement('h2');
@@ -100,7 +95,7 @@ function printTodaysWeather(name, weather, timezone) {
     uviBox.classList.add('uvi-btn');
     uviBox.textContent = uvi;
 
-
+//Coloring for UVI box
     if (uvi < 3) {
         uviBox.classList.add('safe-uvi')
     }
@@ -116,10 +111,9 @@ function printTodaysWeather(name, weather, timezone) {
     boxContent.append(header, tempEl, windEl, humidityEl, uviEl);
     todayContainer.innerHTML = '';
     todayContainer.append(boxContent);
-
-
 }
 
+//Creation of a singular forecast card
 function createForecast(forecast, timezone) {
     var fDate = forecast.dt;
     var icon = `https://openweathermap.org/img/w/${forecast.weather[0].icon}.png`;
@@ -157,6 +151,7 @@ function createForecast(forecast, timezone) {
 
 }
 
+//Printing of 5 forecast cards
 function printForecast(dailyData, timezone) {
 
     var begin = dayjs().tz(timezone).add(1, 'day').startOf('day').unix();
@@ -172,16 +167,14 @@ function printForecast(dailyData, timezone) {
     forecastContainer.innerHTML = '';
     forecastContainer.append(fHeader);
     for (var i = 0; i < dailyData.length; i++) {
-        // The api returns forecast data which may include 12pm on the same day and
-        // always includes the next 7 days. The api documentation does not provide
-        // information on the behavior for including the same day. Results may have
-        // 7 or 8 items.
+    
         if (dailyData[i].dt >= begin && dailyData[i].dt < end) {
             createForecast(dailyData[i], timezone);
         }
     }
 }
 
+//API call to get location data
 function fetchLoc(fixedInput) {
     var requestURL = `${weatherApiRootUrl}/geo/1.0/direct?q=${fixedInput}&limit=5&appid=${weatherApiKey}`;
     fetch(requestURL)
@@ -204,6 +197,7 @@ function fetchLoc(fixedInput) {
         });
 }
 
+//API call to get weather data
 function fetchWeather(location) {
     console.log(location)
 
@@ -227,12 +221,13 @@ function fetchWeather(location) {
 }
 
 
-
+//Renders all information requested
 function printEverything(name, data) {
     printTodaysWeather(name, data.current, data.timezone);
     printForecast(data.daily, data.timezone);
 }
 
+//Pulls up data when clicked on button of past searched city
 function historySearch(e) {
     if (!e.target.matches('.inHistory')) {
         return;
@@ -244,6 +239,7 @@ function historySearch(e) {
 
 }
 
+//Function to take user input for city and adjust it for API usage
 function searchCity(e) {
 
     if (!cityInput.value) {
@@ -257,6 +253,7 @@ function searchCity(e) {
     cityInput.value = '';
 }
 
+//init functions for local storage and button event listeners
 getHistory();
 searchBox.addEventListener('submit', searchCity)
 historyContainer.addEventListener('click', historySearch)
