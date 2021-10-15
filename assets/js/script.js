@@ -44,11 +44,10 @@ function printHistory() {
     for (var i = searchHistory.length - 1; i >= 0; i--) {
         var historyItem = document.createElement('button');
         historyItem.textContent = searchHistory[i];
-        historyItem.classList.add('historyItem')
+        historyItem.classList.add('historyItem', 'inHistory')
         historyItem.setAttribute('data-search', searchHistory[i]);
         historyItem.setAttribute('aria-controls', 'today')
         historyContainer.append(historyItem);
-
 
     }
 
@@ -61,7 +60,7 @@ function printTodaysWeather(name, weather, timezone) {
     var temp = weather.temp;
     var windspd = weather.wind_speed;
     var humidity = weather.humidity;
-    var uvi = weather.uvi;
+    var {uvi} = weather;
     var icon = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
     var iconCaption = weather.weather[0].description || weather[0].main;
 
@@ -98,18 +97,18 @@ function printTodaysWeather(name, weather, timezone) {
 
 
     uviEl.textContent = 'UV  Index: ';
-    uviBox.classList.add('.uvi-btn')
+    uviBox.classList.add('uvi-btn');
     uviBox.textContent = uvi;
 
 
     if (uvi < 3) {
-        uviBox.classList.add('.uvi-btn.safe-uvi')
+        uviBox.classList.add('safe-uvi')
     }
     else if (uvi < 7) {
-        uviBox.classList.add('.uvi-btn.wary-uvi')
+        uviBox.classList.add('wary-uvi')
     }
     else {
-        uviBox.classList.add('.uvi-btn.danger-uvi')
+        uviBox.classList.add('danger-uvi')
     }
 
     uviEl.append(uviBox);
@@ -127,7 +126,7 @@ function createForecast(forecast, timezone) {
     var iconCaption = forecast.weather[0].description;
     var temp = forecast.temp.day;
     var { humidity } = forecast;
-    var { wind_speed } = forecast.wind_speed;
+    var { wind_speed } = forecast;
 
     var day = document.createElement('div');
     var fBox = document.createElement('div');
@@ -143,14 +142,8 @@ function createForecast(forecast, timezone) {
     fBoxBody.append(fBoxTitle, imgF, tempEl, windEl, humidityEl);
 
 
-    day.classList.add('five-day-card');
-    day.classList.add('col-md');
+    day.classList.add('col-md', 'five-day-card');
     fBox.setAttribute('class', 'card bg-primary h-100 text-white');
-    fBoxBody.setAttribute('class', 'card-body p-2');
-    fBoxTitle.setAttribute('class', 'card-title');
-    tempEl.setAttribute('class', 'card-text');
-    windEl.setAttribute('class', 'card-text');
-    humidityEl.setAttribute('class', 'card-text');
 
 
     fBoxTitle.textContent = dayjs.unix(fDate).tz(timezone).format('M/D/YYYY');

@@ -103,4 +103,12 @@ margin-top: 20px;
   background-color: #aeaeae;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
-  }
+  
+
+.five-day-card{
+  position: relative;
+  width: 20%;
+  padding-right: 15px;
+  padding-left: 15px;
+
+}
