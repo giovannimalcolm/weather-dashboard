@@ -21,7 +21,7 @@ function getHistory() {
         searchHistory = JSON.parse(storedHistory);
     }
 
-    /// add function to print history after parsed
+    printHistory();
 }
 
 function addHistory(input) {
@@ -32,9 +32,10 @@ function addHistory(input) {
     searchHistory.push(input);
 
     localStorage.setItem('history', JSON.stringify(searchHistory));
-    printHistory(); //create function
+    printHistory(); 
 }
 
+//incomplete
 function printHistory() {
     historyContainer.innerHTML = ''; //clear it out before printing so no doubles
     //end to start of list, create button with city names 
@@ -62,12 +63,32 @@ function fetchLoc(fixedInput) {
             }
             else {
                 addHistory(fixedInput)
-                ///get weather
+                fetchWeather(data[0]);
             }
         })
         .catch(function (err) {
             console.error(err);
         });
+}
+
+function fetchWeather(loc){
+var {lat} = loc;
+var {lon} = loc;
+var {name} = loc;
+
+var requestURL = `${weatherApiRootUrl}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}`;
+
+fetch(requestURL)
+.then(function(res){
+    return res.json;
+})
+.then(function (data){
+    //print everything function here bc all data is achieved
+})
+.catch(function(err){
+    console.error(err);
+
+});
 }
 
 
