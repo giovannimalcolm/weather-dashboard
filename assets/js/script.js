@@ -9,14 +9,14 @@ dayjs.extend(window.dayjs_plugin_timezone);
 //Elements & Global Vars
 var cityInput = document.querySelector('#city-input') //input field when searching
 var historyContainer = document.querySelector('#history') //search history list
-var todayContainer = document.querySelector('#today') //big container for todays weather
+var todayContainer = document.querySelector('#presentDay') //big container for todays weather
 var searchHistory = [];
 var searchBox = document.querySelector("#citySearch");
 
 
 //Function to pull history from user lcl storage
 function getHistory() {
-    var storedHistory = localStorage.getItem('searchHistory')
+    var storedHistory = localStorage.getItem('history')
     if (storedHistory) {
         searchHistory = JSON.parse(storedHistory);
     }
@@ -26,24 +26,31 @@ function getHistory() {
 
 function addHistory(input) {
 
-    if (searchHistory.indexOf(input) == -1) {
+    if (searchHistory.indexOf(input) !== -1) {
         return;
     }
+    console.log(input)
     searchHistory.push(input);
 
     localStorage.setItem('history', JSON.stringify(searchHistory));
     printHistory();
 }
 
-//incomplete
+
 function printHistory() {
-    historyContainer.innerHTML = ''; //clear it out before printing so no doubles
-    //end to start of list, create button with city names 
+    historyContainer.innerHTML = ''; 
+    console.log(searchHistory)
     for (var i = searchHistory.length - 1; i >= 0; i--) {
         var historyItem = document.createElement('button');
         historyItem.textContent = searchHistory[i];
+        historyItem.classList.add ('historyItem')
+        historyItem.setAttribute('data-search', searchHistory[i]);
+        historyItem.setAttribute('aria-controls', 'today')
         historyContainer.append(historyItem);
+
+        
     }
+
 
 }
 
@@ -73,7 +80,7 @@ function printTodaysWeather(name, weather, timezone) {
     box.append(boxContent);
 
     var date = dayjs().tz(timezone).format('M/D/YYYY');
-    header.textContent = '${name} (${date})';
+    header.textContent = `${name} (${date})`;
     header.setAttribute('class', 'h3 today-title')
     weatherImg.setAttribute('class', 'weather-img')
     weatherImg.setAttribute('src', icon);
@@ -88,28 +95,27 @@ function printTodaysWeather(name, weather, timezone) {
     humidityEl.textContent = `Humidity: ${humidity} %`;
     humidityEl.setAttribute('class', 'today-txt')
 
+
     uviEl.textContent = 'UV  Index: ';
     uviBox.classList.add('.uvi-btn')
     uviBox.textContent = uvi;
 
 
     if (uvi < 3) {
-        uviBox.classList.add('safe-uvi')
+        uviBox.classList.add('.uvi-btn.safe-uvi')
     }
     else if (uvi < 7) {
-        uviBox.classList.add('wary-uvi')
+        uviBox.classList.add('.uvi-btn.wary-uvi')
     }
     else {
-        uviBox.classList.add('danger-uvi')
+        uviBox.classList.add('.uvi-btn.danger-uvi')
     }
 
     uviEl.append(uviBox);
 
-    boxContent.append(header, tempEl, WindEl, humidityEl, uviEl);
-
-
-
-
+    boxContent.append(header, tempEl, windEl, humidityEl, uviEl);
+    todayContainer.innerHTML ='';
+    todayContainer.append(boxContent);
 
 
 }
@@ -126,6 +132,7 @@ function fetchLoc(fixedInput) {
                 alert('City not found');
             }
             else {
+                console.log(fixedInput)
                 addHistory(fixedInput);
                 console.log(data)
                 fetchWeather(data[0]);
@@ -147,11 +154,11 @@ function fetchWeather(location) {
 
     fetch(requestURL)
         .then(function (res) {
-            return res.json;
+            return res.json();
         })
         .then(function (data) {
             console.log(data)
-            //printContent(name, data);
+            printTodaysWeather(name, data.current, data.timezone)
         })
         .catch(function (err) {
             console.error(err);
