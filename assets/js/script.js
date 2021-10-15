@@ -12,6 +12,7 @@ var historyContainer = document.querySelector('#history') //search history list
 var todayContainer = document.querySelector('#presentDay') //big container for todays weather
 var searchHistory = [];
 var searchBox = document.querySelector("#citySearch");
+var forecastContainer = document.querySelector('#weekly')
 
 
 //Function to pull history from user lcl storage
@@ -38,17 +39,17 @@ function addHistory(input) {
 
 
 function printHistory() {
-    historyContainer.innerHTML = ''; 
+    historyContainer.innerHTML = '';
     console.log(searchHistory)
     for (var i = searchHistory.length - 1; i >= 0; i--) {
         var historyItem = document.createElement('button');
         historyItem.textContent = searchHistory[i];
-        historyItem.classList.add ('historyItem')
+        historyItem.classList.add('historyItem')
         historyItem.setAttribute('data-search', searchHistory[i]);
         historyItem.setAttribute('aria-controls', 'today')
         historyContainer.append(historyItem);
 
-        
+
     }
 
 
@@ -114,12 +115,79 @@ function printTodaysWeather(name, weather, timezone) {
     uviEl.append(uviBox);
 
     boxContent.append(header, tempEl, windEl, humidityEl, uviEl);
-    todayContainer.innerHTML ='';
+    todayContainer.innerHTML = '';
     todayContainer.append(boxContent);
 
 
 }
 
+function createForecast(forecast, timezone) {
+    var fDate = forecast.dt;
+    var icon = `https://openweathermap.org/img/w/${forecast.weather[0].icon}.png`;
+    var iconCaption = forecast.weather[0].description;
+    var temp = forecast.temp.day;
+    var { humidity } = forecast;
+    var { wind_speed } = forecast.wind_speed;
+
+    var day = document.createElement('div');
+    var fBox = document.createElement('div');
+    var fBoxBody = document.createElement('div');
+    var fBoxTitle = document.createElement('h5');
+    var imgF = document.createElement('img');
+    var tempEl = document.createElement('p');
+    var windEl = document.createElement('p');
+    var humidityEl = document.createElement('p');
+
+    day.append(fBox);
+    fBox.append(fBoxBody)
+    fBoxBody.append(fBoxTitle, imgF, tempEl, windEl, humidityEl);
+
+
+    day.classList.add('five-day-card');
+    day.classList.add('col-md');
+    fBox.setAttribute('class', 'card bg-primary h-100 text-white');
+    fBoxBody.setAttribute('class', 'card-body p-2');
+    fBoxTitle.setAttribute('class', 'card-title');
+    tempEl.setAttribute('class', 'card-text');
+    windEl.setAttribute('class', 'card-text');
+    humidityEl.setAttribute('class', 'card-text');
+
+
+    fBoxTitle.textContent = dayjs.unix(fDate).tz(timezone).format('M/D/YYYY');
+    imgF.setAttribute('src', icon);
+    imgF.setAttribute('alt', iconCaption);
+    tempEl.textContent = `Temp: ${temp} °F`;
+    windEl.textContent = `Wind: ${wind_speed} MPH`;
+    humidityEl.textContent = `Humidity: ${humidity} %`;
+
+    forecastContainer.append(day);
+
+}
+
+function printForecast(dailyData, timezone) {
+
+    var begin = dayjs().tz(timezone).add(1, 'day').startOf('day').unix();
+    var end = dayjs().tz(timezone).add(6, 'day').startOf('day').unix();
+
+    var fHeader = document.createElement('div');
+    var header = document.createElement('h4');
+
+    fHeader.setAttribute('class', 'col-12');
+    header.textContent = '5-Day Forecast:';
+    fHeader.append(header);
+
+    forecastContainer.innerHTML = '';
+    forecastContainer.append(fHeader);
+    for (var i = 0; i < dailyData.length; i++) {
+        // The api returns forecast data which may include 12pm on the same day and
+        // always includes the next 7 days. The api documentation does not provide
+        // information on the behavior for including the same day. Results may have
+        // 7 or 8 items.
+        if (dailyData[i].dt >= begin && dailyData[i].dt < end) {
+            createForecast(dailyData[i], timezone);
+        }
+    }
+}
 
 function fetchLoc(fixedInput) {
     var requestURL = `${weatherApiRootUrl}/geo/1.0/direct?q=${fixedInput}&limit=5&appid=${weatherApiKey}`;
@@ -158,15 +226,19 @@ function fetchWeather(location) {
         })
         .then(function (data) {
             console.log(data)
-            printTodaysWeather(name, data.current, data.timezone)
+            printEverything(name, data)
         })
         .catch(function (err) {
             console.error(err);
-
         });
 }
 
 
+
+function printEverything(name, data) {
+    printTodaysWeather(name, data.current, data.timezone);
+    printForecast(data.daily, data.timezone);
+}
 
 function historySearch(e) {
     if (!e.target.matches('.inHistory')) {
