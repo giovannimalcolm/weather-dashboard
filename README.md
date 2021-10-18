@@ -4,6 +4,15 @@ A simple weather dashboard application. The user is able to input a city and is 
 
 If the user wishes to see their search history, it is present under the search bar. Cities may be clicked on to be searched one more. 
 
+Technologies Used:
+* HTML
+* CSS
+* Javascript 
+* JQuery
+* Moment Js
+* Open Weather Map API
+* Bootstrap
+
 The application can be found at: https://giovannimalcolm.github.io/weather-dashboard/
 
 
