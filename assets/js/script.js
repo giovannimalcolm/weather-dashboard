@@ -136,8 +136,9 @@ function createForecast(forecast, timezone) {
     fBoxBody.append(fBoxTitle, imgF, tempEl, windEl, humidityEl);
 
 
-    day.classList.add('col-md', 'five-day-card');
-    fBox.setAttribute('class', 'card bg-primary h-100 text-white');
+    day.classList.add('col-md-3', 'five-day-card');
+    fBox.setAttribute('class', 'todaysWeather bg-primary h-100 text-white');
+    fBoxBody.setAttribute('class', 'todaysWeather-body p-2')
 
 
     fBoxTitle.textContent = dayjs.unix(fDate).tz(timezone).format('M/D/YYYY');
