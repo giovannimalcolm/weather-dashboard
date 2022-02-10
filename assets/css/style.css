@@ -23,6 +23,8 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #101f3e;
+  font-family: Helvetica, sans-serif, Arial;
 }
 
 /**
@@ -41,6 +43,11 @@ main {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+}
+
+h4{
+  color: #8fb5e3;
+
 }
 
 /* Grouping content
@@ -356,10 +363,10 @@ template {
   */
 
 .main-header {
-  background-image: linear-gradient(blue, purple);
-  color: white;
+  color: #8fb5e3;
   text-align: center;
   width: 100%;
+  
   padding: 0.05%;
   font-family: Arial, Helvetica, sans-serif;
   font-size: large;
@@ -370,6 +377,7 @@ template {
   font-family: Arial, Helvetica, sans-serif;
   display: inline-block;
   margin-top: 20px;
+  color: #8fb5e3;
 }
 
 .sidebar {
@@ -382,12 +390,18 @@ template {
 }
 
 .todaysWeather {
-  border: 1px solid black;
+  border: 3px solid #8fb5e3;
+  border-radius: 10px;
   margin-bottom: 1rem;
+  margin-top: 0.25rem;
+  color: #8fb5e3;
 }
 
 .todaysWeather .todaysWeather-body {
   padding: 0.4rem;
+  background-color: #101f3e;
+  border-radius: 10px;
+  color: #8fb5e3;
 }
 
 .uvi-btn {
@@ -448,7 +462,7 @@ template {
   border: 1px solid transparent;
   outline: none;
   color: #1a1a1a;
-  background-color: #aeaeae;
+  background-color:  #8fb5e3;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
@@ -457,22 +471,35 @@ template {
   width: 20%;
   padding-right: 15px;
   padding-left: 15px;
+  
 }
 
 .container {
   width: 85%;
   max-width: 1200px;
-  margin-left: 0 !important;  
 }
 
-.container.container-fluid {
+
+.container-fluid {
   width: 100%;
-  margin-left: 0 !important;
-
+  margin-left: 70px;
 }
-
-
 
 .row{
   justify-content: left;
+}
+
+.btn{
+ background-color: #101f3e;
+}
+
+.form-control{
+  background-color: #101f3e;
+  color: #8fb5e3;
+  border-color:#8fb5e3;
+}
+
+.form-control:valid {
+  background-color: #101f3e;
+  color: #fff;
 }
