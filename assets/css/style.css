@@ -22,6 +22,7 @@
 
 body {
   margin: 0;
+  padding: 0;
 }
 
 /**
@@ -348,6 +349,12 @@ template {
   display: none;
 }
 
+/* 
+  =================
+  END NORMALIZE CSS
+  =================
+  */
+
 .main-header {
   background-image: linear-gradient(blue, purple);
   color: white;
@@ -452,3 +459,19 @@ template {
   padding-left: 15px;
 }
 
+.container {
+  width: 85%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container.container-fluid {
+  width: 92%;
+}
+
+
+
+.row{
+  justify-content: left;
+}

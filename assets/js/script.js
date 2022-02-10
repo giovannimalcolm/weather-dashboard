@@ -13,6 +13,7 @@ var todayContainer = document.querySelector('#presentDay') //big container for t
 var searchHistory = [];
 var searchBox = document.querySelector("#citySearch");
 var forecastContainer = document.querySelector('#weekly')
+var presentDay = document.querySelector('#presentDay');
 
 
 //Function to pull history from user lcl storage
@@ -252,6 +253,9 @@ function searchCity(e) {
     console.log(fixedInput)
     fetchLoc(fixedInput);
     cityInput.value = '';
+
+    presentDay.setAttribute('class', 'todaysWeather');
+
 }
 
 //init functions for local storage and button event listeners
