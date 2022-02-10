@@ -462,13 +462,13 @@ template {
 .container {
   width: 85%;
   max-width: 1200px;
-  margin-left: 0;
-  
+  margin-left: 0 !important;  
 }
 
 .container.container-fluid {
   width: 100%;
-  margin-left: 0;
+  margin-left: 0 !important;
+
 }
 
 
