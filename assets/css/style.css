@@ -380,10 +380,6 @@ template {
   color: #8fb5e3;
 }
 
-.sidebar {
-  width: 10%;
-}
-
 #sidebar-btn {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -472,11 +468,6 @@ template {
   padding-right: 15px;
   padding-left: 15px;
   
-}
-
-.container {
-  width: 85%;
-  max-width: 1200px;
 }
 
 
